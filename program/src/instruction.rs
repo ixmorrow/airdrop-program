@@ -1,7 +1,7 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use shank::ShankInstruction;
 use crate::error::AirdropError::{InstructionUnpackError};
-use solana_program::{program_error::ProgramError, msg};
+use solana_program::{program_error::ProgramError};
 
 
 #[derive(BorshDeserialize, Debug)]
