@@ -21,10 +21,7 @@ pub enum AirdropEnum {
 impl AirdropEnum {
     pub fn unpack(input: &[u8]) -> Result<Self, ProgramError> {
         let (variant, amount) = input.split_first().ok_or(InstructionUnpackError)?;
-        msg!("variant {}", variant);
         let payload = AirdropPayload::try_from_slice(amount).unwrap();
-        msg!("amount {:?}", payload.amount);
-
         Ok(match variant {
             0 => Self::AirdropInstruction { amount: payload.amount },
             _ => return Err(InstructionUnpackError.into())

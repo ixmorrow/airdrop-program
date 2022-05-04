@@ -25,9 +25,6 @@ impl Processor {
                 let mint_auth = next_account_info(account_info_iter)?;
                 let token_program = next_account_info(account_info_iter)?;
 
-                msg!("amount: {:?}", amount);
-                msg!("amount in lamps: {:?}", amount*LAMPORTS_PER_SOL);
-
                 msg!("deriving pda mint");
                 let (pda, bump) = Pubkey::find_program_address(&[], program_id);
 
