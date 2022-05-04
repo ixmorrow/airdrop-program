@@ -7,26 +7,30 @@ use solana_program::{
 use thiserror::Error;
 
 #[derive(Error, Clone, Debug, Eq, PartialEq, FromPrimitive)]
-pub enum ErrorThingy {
+pub enum AirdropError {
     /// Error description
-    #[error("Error message")]
-    ErrorName,
+    #[error("Error unpacking instruction")]
+    InstructionUnpackError,
+    #[error("Error in PDA validation")]
+    PDAError,
+    #[error("Incorrect account")]
+    IncorrectAccountError,
 }
 
-impl PrintProgramError for ErrorThingy {
+impl PrintProgramError for AirdropError {
     fn print<E>(&self) {
         msg!(&self.to_string());
     }
 }
 
-impl From<ErrorThingy> for ProgramError {
-    fn from(e: ErrorThingy) -> Self {
+impl From<AirdropError> for ProgramError {
+    fn from(e: AirdropError) -> Self {
         ProgramError::Custom(e as u32)
     }
 }
 
-impl<T> DecodeError<T> for ErrorThingy {
+impl<T> DecodeError<T> for AirdropError {
     fn type_of() -> &'static str {
-        "Error Thingy"
+        "Airdrop error"
     }
 }
